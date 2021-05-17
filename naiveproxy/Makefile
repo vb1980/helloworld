@@ -1,5 +1,6 @@
 #
-# Copyright (C) 2020 Project OpenWrt
+# Copyright (C) 2021 ImmortalWrt
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
@@ -7,17 +8,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=naiveproxy
-PKG_VERSION:=87.0.4280.66-1
+PKG_VERSION:=90.0.4430.85-6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/klzgrad/naiveproxy/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=17e79172fa32cb3b619614af989569aec7e866046f17e4a1b2179940f1915290
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_HASH:=cc216c958a996e0d45db26d3a4ebf3faa93494c98bd24475ed3a2b63687311dd
 
 PKG_LICENSE:=BSD 3-Clause
 PKG_LICENSE_FILES:=LICENSE
-PKG_MAINTAINER:=CN_SZTL <cnsztl@project-openwrt.eu.org>
+PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
 
 PKG_BUILD_DEPENDS:=ncurses/host ninja/host python3/host
 PKG_USE_MIPS16:=0
@@ -62,42 +62,42 @@ ifneq ($(CONFIG_CCACHE),)
 	export naive_ccache_flags=cc_wrapper="ccache"
 endif
 
-AFDO_VER:=87.0.4278.0_rc-r1-merged
-AFDO_FILE:=chromeos-chrome-amd64-$$(AFDO_VER).afdo.bz2
+AFDO_VER:=90.0.4430.53_rc-r1-merged
+AFDO_FILE:=chromeos-chrome-amd64-$(AFDO_VER).afdo.bz2
 define Download/AFDO_PROF
 	URL:=https://storage.googleapis.com.cnpmjs.org/chromeos-prebuilt/afdo-job/llvm \
 	     https://storage.googleapis.com/chromeos-prebuilt/afdo-job/llvm
 	URL_FILE:=$(AFDO_FILE)
 	FILE:=$(AFDO_FILE)
-	HASH:=7625590b588195918b30c63db20e06339132bbe8975f39e2e429b929682ee3ff
+	HASH:=5cfc5e371459687a320b92e255995d377837843a1fabba6a01d432e932b5b761
 endef
 
-CLANG_VER:=llvmorg-12-init-5035-gd0abc757-3
-CLANG_FILE:=clang-$$(CLANG_VER).tgz
+CLANG_VER:=llvmorg-13-init-1559-g01b87444-3
+CLANG_FILE:=clang-$(CLANG_VER).tgz
 define Download/CLANG
 	URL:=https://commondatastorage.googleapis.com/chromium-browser-clang/Linux_x64
 	URL_FILE:=$(CLANG_FILE)
 	FILE:=$(CLANG_FILE)
-	HASH:=b0c3015209b6d624844ad230064eb5c9b4429a2eafd4854981e73217c563d93d
+	HASH:=676448e180fb060d3983f24476a2136eac83c6011c600117686035634a2bbe26
 endef
 
-GN_VER:=e002e68a48d1c82648eadde2f6aafa20d08c36f2
+GN_VER:=dfcbc6fed0a8352696f92d67ccad54048ad182b3
 GN_FILE:=gn-git_revision-$(GN_VER).zip
 define Download/GN_TOOL
 	URL:=https://chrome-infra-packages.appspot.com/dl/gn/gn/linux-amd64/+
 	URL_FILE:=git_revision:$(GN_VER)
 	FILE:=$(GN_FILE)
-	HASH:=67a733dc12803f61a0565ba3a390fa08576b2c4dc1d615c5c15c2b681e900675
+	HASH:=a150f403e2fa3f4464148ce5ec0735c8c6058577ef3fadffcdcf7aadba6ee8e1
 endef
 
-PGO_VER:=4280-1605284980-f890b7d0344c87909c28619fe56e1dd48953d29e
+PGO_VER:=4430-1618483786-646ea3f0575412a6f8d1607da5c9f7b4f0e5e58d
 PGO_FILE:=chrome-linux-$(PGO_VER).profdata
 define Download/PGO_PROF
 	URL:=https://storage.googleapis.com.cnpmjs.org/chromium-optimization-profiles/pgo_profiles \
 	     https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles
 	URL_FILE:=$(PGO_FILE)
 	FILE:=$(PGO_FILE)
-	HASH:=8d87e67b84b2694776c931d8eabf0760144420718fe6a5352951fae38a3a25f6
+	HASH:=d781d7e72687d1897eb837ee4e404367b3fdd2e65c6f0f3b2e74a20dc001ef0e
 endef
 
 define Build/Prepare
